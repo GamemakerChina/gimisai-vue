@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <mu-appbar title="GiMiSai" class="gimisai-appbar" color="primary" :class="{'nav-hide': !open}">
-        <mu-button icon slot="left" @click="toggle()"><mu-icon value="menu"></mu-icon></mu-button>
+        <mu-button icon slot="left" @click="toggle()"><span class="iconfont icon-home_menu"></span></mu-icon></mu-button>
         <mu-button flat slot="right">_</mu-button>
         <mu-button flat slot="right">X</mu-button>
     </mu-appbar>
