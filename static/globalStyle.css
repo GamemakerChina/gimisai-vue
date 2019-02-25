@@ -1,0 +1,46 @@
+#app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #23b27e;
+}
+.gimisai-appbar {
+    /***
+    position: fixed;
+    left: 256px;
+    right: 0;
+    top: 0;
+    width: auto;
+    transition: all .45s;
+    ***/
+    background-color: #23b27e !important;
+    -webkit-user-select:none;
+}
+/***
+.gimisai-appbar.nav-hide {
+    left: 0;
+}
+***/
+.container {
+    background-color: #23b27e !important;
+}
+/***
+.mu-card {
+    width: 100%;
+    max-width: 375px;
+    margin: 0 auto;
+    background-color:#23b27e !important;
+    box-shadow: 0 0 0 0 rgba(0,0,0,.2) !important;
+}
+***/
+.mu-tabs {
+    background-color: #23b27e !important;
+    width: auto !important;
+}
+.sidebar {
+    position: fixed;
+    width:250px;
+    height: 100% !important;
+    box-shadow: 2px 0 0 0 rgba(0,0,0,.2) !important;
+}

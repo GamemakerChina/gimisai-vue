@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <mu-appbar title="GiMiSai" class="gimisai-appbar" color="primary" :class="{'nav-hide': !open}">
+    <mu-appbar title="GiMiSai" class="gimisai-appbar" :class="{'nav-hide': !open}">
         <mu-button icon slot="left" @click="toggle()"><span class="iconfont icon-home_menu"></span></mu-icon></mu-button>
         <mu-button flat slot="right">_</mu-button>
         <mu-button flat slot="right">X</mu-button>
@@ -36,7 +36,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #23b27e;
 }
 .gimisai-appbar {
   position: fixed;
@@ -45,6 +45,7 @@ export default {
   top: 0;
   width: auto;
   transition: all .45s;
+  background-color: #23b27e;
 }
 .gimisai-appbar.nav-hide {
   left: 0;
