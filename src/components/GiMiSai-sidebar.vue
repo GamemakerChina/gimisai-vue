@@ -2,6 +2,13 @@
     <section>
         <div class="sidebar">
             <mu-drawer :open="show">
+                <mu-container>
+                    <mu-card>
+                        <mu-card-header title="LiarOnce" sub-title="Vue testing...">
+                            <mu-avatar slot="avatar"><img src="static/images/me.jpg"></mu-avatar>
+                        </mu-card-header>
+                    </mu-card>
+                </mu-container>
                 <mu-list>
                     <mu-list-item button :ripple="false">
                         <mu-list-item-action>
@@ -75,3 +82,16 @@ export default {
     }
 }
 </script>
+
+<style>
+.container {
+    background-color: #23b27e;
+}
+.mu-card {
+    width: 100%;
+    max-width: 375px;
+    margin: 0 auto;
+    background-color:#23b27e;
+    box-shadow: 0 0 0 0 rgba(0,0,0,.2);
+}
+</style>
