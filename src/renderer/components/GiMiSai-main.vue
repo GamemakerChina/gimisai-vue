@@ -7,9 +7,6 @@
                 <router-link to="/apps"></router-link>
             </mu-tab>
             <mu-tab><span class="iconfont icon-bbs"></span>论坛</mu-tab>
-            <mu-tab><span class="iconfont icon-upload-demo"></span>下载</mu-tab>
-            <mu-tab><span class="iconfont icon-mzicon-setting"></span>设置</mu-tab>
-            <mu-tab><span class="iconfont icon-aboutus"></span>关于</mu-tab>
         </mu-tabs>
         <!---
         <div class="sidebar">
