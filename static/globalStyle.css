@@ -4,6 +4,9 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #23b27e;
+    width: 800px;
+    height: 550px;
+    overflow: hidden;
 }
 .gimisai-appbar {
     /***
@@ -14,8 +17,16 @@
     width: auto;
     transition: all .45s;
     ***/
+    height: 36px !important;
     background-color: #23b27e !important;
     -webkit-user-select:none;
+}
+.mu-appbar-title{
+    color: white;
+    line-height: 36px !important;
+}
+.mu-flat-button{
+    width: 48px !important;
 }
 /***
 .gimisai-appbar.nav-hide {

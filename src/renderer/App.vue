@@ -15,7 +15,7 @@
 
 <script>
 import Mainform from './components/GiMiSai-main'
-//import { ipcRenderer } from 'electron' //for web
+import { ipcRenderer } from 'electron' //for web
 export default {
   name: 'App',
   data(){
@@ -30,15 +30,13 @@ export default {
     toggle(msg){
       console.log(msg);
       this.open = !this.open
-    }
-    /***
+    },
     min:function(){
         ipcRenderer.send('min');
     },
     close:function(){
         ipcRenderer.send('close');
     }
-    ***/
   }
 }
 </script>

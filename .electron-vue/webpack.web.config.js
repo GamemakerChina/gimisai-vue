@@ -5,22 +5,43 @@ process.env.BABEL_ENV = 'web'
 const path = require('path')
 const webpack = require('webpack')
 
-const BabiliWebpackPlugin = require('babili-webpack-plugin')
+const MinifyPlugin = require("babel-minify-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader')
 
+function resolve(dir) {
+  return path.join(__dirname, '..', dir)
+}
+
 let webConfig = {
-  devtool: '#cheap-module-eval-source-map',
+  devtool: 'source-map',
   entry: {
-    web: path.join(__dirname, '../src/renderer/main.js')
-  },
-  node: {
-    fs: "empty"
+    web: resolve('src/renderer/main.js')
   },
   module: {
     rules: [
+      // {
+      //   test: /\.(js|vue)$/,
+      //   enforce: 'pre',
+      //   exclude: /node_modules/,
+      //   use: {
+      //     loader: 'eslint-loader',
+      //     options: {
+      //       formatter: require('eslint-friendly-formatter')
+      //     }
+      //   }
+      // },
+      {
+        test: /\.scss$/,
+        use: ['vue-style-loader', 'css-loader', 'sass-loader']
+      },
+      {
+        test: /\.sass$/,
+        use: ['vue-style-loader', 'css-loader', 'sass-loader?indentedSyntax']
+      },
       {
         test: /\.less$/,
         use: ['vue-style-loader', 'css-loader', 'less-loader']
@@ -36,7 +57,7 @@ let webConfig = {
       {
         test: /\.js$/,
         use: 'babel-loader',
-        include: [ path.resolve(__dirname, '../src/renderer') ],
+        include: [resolve('src/renderer')],
         exclude: /node_modules/
       },
       {
@@ -54,20 +75,31 @@ let webConfig = {
         }
       },
       {
+        test: /\.svg$/,
+        loader: 'svg-sprite-loader',
+        include: [resolve('src/renderer/icons')],
+        options: {
+          symbolId: 'icon-[name]'
+        }
+      },
+      {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        exclude: [resolve('src/renderer/icons')],
         use: {
           loader: 'url-loader',
-          query: {
+          options: {
+            esModule: false,
             limit: 10000,
             name: 'imgs/[name].[ext]'
           }
-        }
+        },
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         use: {
           loader: 'url-loader',
-          query: {
+          options: {
+            esModule: false,
             limit: 10000,
             name: 'fonts/[name].[ext]'
           }
@@ -77,7 +109,7 @@ let webConfig = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new MiniCssExtractPlugin({filename: 'styles.css'}),
+    new MiniCssExtractPlugin({ filename: 'styles.css' }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.resolve(__dirname, '../src/index.ejs'),
@@ -115,14 +147,18 @@ if (process.env.NODE_ENV === 'production') {
   webConfig.devtool = ''
 
   webConfig.plugins.push(
-    new BabiliWebpackPlugin(),
-    new CopyWebpackPlugin([
-      {
-        from: path.join(__dirname, '../static'),
-        to: path.join(__dirname, '../dist/web/static'),
-        ignore: ['.*']
-      }
-    ]),
+    new MinifyPlugin(),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.join(__dirname, '../static'),
+          to: path.join(__dirname, '../dist/electron/static'),
+          globOptions: {
+            ignore: ['.*']
+          }
+        }
+      ]
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'
     }),
@@ -130,6 +166,48 @@ if (process.env.NODE_ENV === 'production') {
       minimize: true
     })
   )
+  webConfig.optimization = {
+    splitChunks: {
+      chunks: "async",
+      cacheGroups: {
+        vendor: { // 将第三方模块提取出来
+          minSize: 30000,
+          minChunks: 1,
+          test: /node_modules/,
+          chunks: 'initial',
+          name: 'vendor',
+          priority: 1
+        },
+        commons: {
+          test: /[\\/]src[\\/]common[\\/]/,
+          name: 'commons',
+          minSize: 30000,
+          minChunks: 3,
+          chunks: 'initial',
+          priority: -1,
+          reuseExistingChunk: true // 这个配置允许我们使用已经存在的代码块
+        }
+      }
+    },
+    runtimeChunk: { name: 'runtime' },
+    minimizer: [
+      new TerserPlugin({
+        test: /\.js(\?.*)?$/i,
+        extractComments: false,
+        terserOptions: {
+          warnings: false,
+          compress: {
+            warnings: false,
+            drop_console: true,
+            drop_debugger: true,
+            pure_funcs: ['console.log']
+          },
+          output: {
+            comments: false,
+          },
+        }
+      })]
+  }
 }
 
 module.exports = webConfig
