@@ -66,8 +66,6 @@
   "dependencies": {
     "axios": "^0.21.1",
     "date-fns": "^2.16.1",
-    "electron-drag": "^2.0.0",
-    "electron-rebuild": "^2.3.4",
     "electron-updater": "^4.3.5",
     "express": "^4.17.1",
     "fs-extra": "^9.0.1",
@@ -116,6 +114,7 @@
     "electron": "^11.1.1",
     "electron-builder": "^22.9.1",
     "electron-devtools-installer": "^3.1.1",
+    "electron-rebuild": "^2.3.4",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-friendly-formatter": "^4.0.1",
