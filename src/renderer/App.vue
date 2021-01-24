@@ -1,15 +1,17 @@
 <template>
   <div id="app">
     <mu-appbar title="GiMiSai" class="gimisai-appbar">
-        <!---<mu-button icon slot="left" @click="toggle()"><span class="iconfont icon-home_menu"></span></mu-icon></mu-button>-->
-        <mu-button flat slot="right"><span class="iconfont icon-upload-demo"></span></mu-button>
-        <mu-button flat slot="right"><span class="iconfont icon-mzicon-setting"></span></mu-button>
-        <mu-button flat slot="right"><span class="iconfont icon-aboutus"></span></mu-button>
+        <!---<mu-button icon slot="left" @click="toggle()"><span class="iconfont iconhome_menu"></span></mu-icon></mu-button>-->
+        <mu-button flat slot="right" @click="openabout"><span class="iconfont iconaboutus"></span></mu-button>
         <mu-button flat slot="right" v-on:click="min">_</mu-button>
         <mu-button flat slot="right" v-on:click="close">X</mu-button>
     </mu-appbar>
     <Mainform></Mainform>
-    <!---<sidebar :show="open" v-on:changeState="toggle"></sidebar>-->
+    <mu-dialog transition="slide-bottom" fullscreen :open.sync="aboutFullScreen">
+        <mu-appbar title="关于 GiMiSai" class="gimisai-appbar">
+          <mu-button flat slot="right" @click="closeaboutFullScreen">X</mu-button>
+        </mu-appbar>
+    </mu-dialog>
   </div>
 </template>
 
@@ -20,16 +22,18 @@ export default {
   name: 'App',
   data(){
     return {
-        open: true
+        aboutFullScreen: false
     }
   },
   components: {
     Mainform
   },
   methods: {
-    toggle(msg){
-      console.log(msg);
-      this.open = !this.open
+    openabout () {
+      this.aboutFullScreen = true;
+    },
+    closeaboutFullScreen () {
+      this.aboutFullScreen = false;
     },
     min:function(){
         ipcRenderer.send('min');

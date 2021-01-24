@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '@/components/GiMiSai-main'
-import GMS2 from '@/components/layout/GiMiSai-gms2'
-import GMS from '@/components/layout/GiMiSai-gms'
+import GMS2 from '@/components/layout/apps/app-gms2'
+import GMS from '@/components/layout/apps/app-gms'
 import Apps from '@/components/layout/GiMiSai-apps'
 Vue.use(Router)
 

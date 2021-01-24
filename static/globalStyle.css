@@ -7,7 +7,7 @@ body{
 .iconfont{
     font-size: 24px !important;
 }
-.icon-upload-demo, .icon-mzicon-setting, .icon-aboutus{
+.iconaboutus{
     font-size: 16px !important;
 }
 #app {
@@ -67,7 +67,7 @@ body{
 .mu-item-action{
     min-width: 32px !important;
 }
-.gimisai-apps-box {
+.gimisai-apps-box, .gimisai-settings-box{
     padding: 10px 10px 0 10px;
 }
 .mu-form-item{
@@ -76,4 +76,7 @@ body{
 }
 .mu-input-label{
     top: -10px !important;
+}
+.mu-radio {
+    display: block !important;
 }
